@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const {PORT} = require('./config/serverConfig');
+const { sendBasicEmail } = require('./services/email-service');
 
 const setupAndStartServer = () => {
     const app = express();
@@ -9,6 +10,13 @@ const setupAndStartServer = () => {
 
     app.listen(PORT, () => {
         console.log('Server is up and running in the PORT:',PORT)
+        process.env['NODE_TLS_REJECT_UNAUTHORIZED']=0;
+        sendBasicEmail(
+            'serviceemail382@gmail.com',
+            'divavisha2000@gmail.com',
+            'Testing mail',
+            'Hey, how are you?! hope you are fine'
+        );
     })
 }
 
